@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# site framework
+SITE_ID = 1
 
 # Application definition
 
@@ -37,11 +39,91 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     
     'website',
     'blog',
+    'accounts',
     
+    'django.contrib.humanize',
+    'django_extensions',
+    'django.contrib.sitemaps',
+    'robots',
+    'debug_toolbar',
+    'taggit',
+    'django_summernote', 
+    'captcha',
+    'compressor',
 ]
+
+
+#robots
+ROBOTS_USE_HOST = True
+
+ROBOTS_USE_SITEMAP = True
+
+#summernote configs
+SUMMERNOTE_THEME = 'bs4'
+SUMMERNOTE_CONFIG = {
+    # Using SummernoteWidget - iframe mode, default
+    'iframe': True,
+    # You can put custom Summernote settings
+    'summernote': {
+        # As an example, using Summernote Air-mode
+        'airMode': False,
+
+        # Change editor size
+        #'width': '100%',
+        'height': '480',
+
+        # Toolbar customization
+        # https://summernote.org/deep-dive/#custom-toolbar-popover
+        'toolbar': [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']],
+        ]
+    }
+}
+
+
+#captcha admin setting
+MULTI_CAPTCHA_ADMIN = {
+    'engine': 'simple-captcha',
+}
+
+
+# authentication settings
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.EmailOrUsernameModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# reset password by email
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'the.behzad.abbasi@gmail.com'
+EMAIL_HOST_PASSWORD = 'ucjwtsebqlcgzkyn'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+
+# compressor settings
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+]
+#COMPRESS_URL = str(BASE_DIR / 'static/') 
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,6 +133,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'

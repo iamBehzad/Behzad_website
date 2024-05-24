@@ -1,0 +1,70 @@
+{% load static %}
+<section id="certificates" class="Projects-mf pt-5 route">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="title-box text-center">
+            <h3 class="title-a">
+              certificates
+            </h3>
+            <p class="subtitle-a">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            </p>
+            <div class="line-mf"></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+        {% for certificate in certificates %}  
+        <div class="col-md-4">
+          <div class="service-box">
+            <div class="service-ico">
+              <span class="ico-circle">
+                  <img src="{{certificate.image.url}}" class="ico-circle" alt="">
+              </span>
+            </div>
+            <div class="service-content">
+              <h2 class="s-title"><a href="{{ certificate.Proj_Cert_url }}" target='_blank'>{{certificate.title}}</a></h2>
+              <p class="s-description text-center">
+                {{certificate.content}}
+              </p>
+              <div class="">{{certificate.created_date | date:"D d M Y"}}</div>
+            </div>
+          </div>
+         </div>
+        {% endfor %}
+        <nav class="blog-pagination justify-content-center d-flex">
+					<ul class="pagination">
+						{% if projecs.has_previous %}
+						<li class="page-item">
+							<a href="?cert_page={{certificates.previous_page_number}}" aria-label="Previous">
+								<span aria-hidden="true">
+									<span class="lnr lnr-chevron-left"></span>
+								</span>
+							</a>
+						</li>
+						{% endif %}
+						{% for i in certificates.paginator.page_range %}
+						{% if certificates.number == i %}
+						<li class="page-item active"><a href="?cert_page={{i}}#certificates" class="page-link">{{i}}</a></li>
+						{% else %}
+						<li class="page-item"><a href="?cert_page={{i}}#certificates" class="page-link">{{i}}</a></li>
+						{% endif %}
+						{% endfor %}
+						{% if certificates.has_next %}
+						<li class="page-item">
+							<a href="?cert_page={{certificates.next_page_number}}#certificates"  aria-label="Next">
+								<span aria-hidden="true">
+									<span class="lnr lnr-chevron-right"></span>
+								</span>
+							</a>
+						</li>
+						{% endif %}
+					</ul>
+				</nav>
+      </div>
+    </div>
+
+  </section>
+

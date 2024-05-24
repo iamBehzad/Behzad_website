@@ -1,0 +1,84 @@
+{% load static %}
+{% load humanize %}
+
+<section id="blog" class="blog-mf sect-pt4 route">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="title-box text-center">
+          <h3 class="title-a">
+            Blog
+          </h3>
+          <p class="subtitle-a">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+          </p>
+          <div class="line-mf"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      {% for post in posts %}
+      <div class="col-md-4">
+        <div class="card card-blog">
+          <div class="card-img">
+            <a href="blog-single.html"><img src="{{post.image.url}}" alt="" class="img-fluid"></a>
+          </div>
+          <div class="card-body">
+            <div class="card-category-box">
+              <div class="card-category">
+                {% for cat in post.category.all%}
+                <a href='?cat={{cat.name}}#blog'>  <h6 class="category">{{cat.name|truncatechars:7}}</h6> </a>
+                {% if not forloop.last %},
+                {%endif%}
+                {% endfor %}
+              </div>
+            </div>
+            <h3 class="card-title"><a href="{% url 'blog:single' pid=post.id %}">{{post.title|truncatewords:20}}</a></h3>
+            <p class="card-description">
+              {{post.content|striptags|safe|truncatewords:20}}
+            </p>
+          </div>
+          <div class="card-footer">
+            <div class="post-author">
+                <span class="author">{{post.author}}</span>
+            </div>
+            <div class="post-date">
+              <span class="bi bi-clock"></span> {{post.created_date|naturalday}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      <nav class="blog-pagination justify-content-center d-flex">
+        <ul class="pagination">
+          {% if posts.has_previous %}
+          <li class="page-item">
+            <a href="?blog_page={{posts.previous_page_number}}" aria-label="Previous">
+              <span aria-hidden="true">
+                <span class="lnr lnr-chevron-left"></span>
+              </span>
+            </a>
+          </li>
+          {% endif %}
+          {% for i in posts.paginator.page_range %}
+          {% if posts.number == i %}
+          <li class="page-item active"><a href="?{% if cat %}cat={{ cat }}&{% endif %}blog_page={{i}}#blog" class="page-link">{{i}}</a></li>
+          {% else %}
+          <li class="page-item"><a href="?{% if cat %}cat={{ cat }}&{% endif %}blog_page={{i}}#blog" class="page-link">{{i}}</a></li>
+          {% endif %}
+          {% endfor %}
+          {% if posts.has_next %}
+          <li class="page-item">
+            <a href="?blog_page={{posts.next_page_number}}" aria-label="Next">
+              <span aria-hidden="true">
+                <span class="lnr lnr-chevron-right"></span>
+              </span>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</section>

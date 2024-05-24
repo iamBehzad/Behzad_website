@@ -1,0 +1,70 @@
+{% load static %}
+<section id="Projects" class="Projects-mf pt-5 route">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="title-box text-center">
+            <h3 class="title-a">
+              Projects
+            </h3>
+            <p class="subtitle-a">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            </p>
+            <div class="line-mf"></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+        {% for project in projects %}  
+        <div class="col-md-4">
+          <div class="service-box">
+            <div class="service-ico">
+              <span class="ico-circle">
+                  <img src="{{project.image.url}}" class="ico-circle" alt="">
+              </span>
+            </div>
+            <div class="service-content">
+              <h2 class="s-title"><a href="{{ project.Proj_Cert_url }}" target='_blank'>{{project.title}}</a></h2>
+              <p class="s-description text-center">
+                {{project.content}}
+              </p>
+              <div class="">{{project.created_date | date:"D d M Y"}}</div>
+            </div>
+          </div>
+         </div>
+        {% endfor %}
+        <nav class="blog-pagination justify-content-center d-flex">
+					<ul class="pagination">
+						{% if projecs.has_previous %}
+						<li class="page-item">
+							<a href="?proj_page={{projects.previous_page_number}}" aria-label="Previous">
+								<span aria-hidden="true">
+									<span class="lnr lnr-chevron-left"></span>
+								</span>
+							</a>
+						</li>
+						{% endif %}
+						{% for i in projects.paginator.page_range %}
+						{% if projects.number == i %}
+						<li class="page-item active"><a href="?proj_page={{i}}#Projects" class="page-link">{{i}}</a></li>
+						{% else %}
+						<li class="page-item"><a href="?proj_page={{i}}#Projects" class="page-link">{{i}}</a></li>
+						{% endif %}
+						{% endfor %}
+						{% if projects.has_next %}
+						<li class="page-item">
+							<a href="?proj_page={{projects.next_page_number}}#Projects"  aria-label="Next">
+								<span aria-hidden="true">
+									<span class="lnr lnr-chevron-right"></span>
+								</span>
+							</a>
+						</li>
+						{% endif %}
+					</ul>
+				</nav>
+      </div>
+    </div>
+
+  </section>
+
