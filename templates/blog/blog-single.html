@@ -4,133 +4,134 @@
 {% load blog_tags %}
 {% block content %}
 
-  <div class="hero hero-single route bg-image" style="background-image: url({%static 'assets/img/overlay-bg.jpg)' %})">
-    <div class="overlay-mf"></div>
-    <div class="hero-content display-table">
-      <div class="table-cell">
-        <div class="container">
-          <h2 class="hero-title mb-4">Blog Details</h2>
-        </div>
+<div class="hero hero-single route bg-image" style="background-image: url({%static 'assets/img/overlay-bg.jpg)' %})">
+  <div class="overlay-mf"></div>
+  <div class="hero-content display-table">
+    <div class="table-cell">
+      <div class="container">
+        <h2 class="hero-title mb-4">Blog Details</h2>
       </div>
     </div>
   </div>
+</div>
 
-  <main id="main">
+<main id="main">
 
-    <!-- ======= Blog Single Section ======= -->
-    <section class="blog-wrapper sect-pt4" id="blog">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8">
-            <div class="post-box">
-              <div class="post-thumb">
-                <img src="{{post.image.url}}" class="img-fluid" alt="">
-              </div>
-              <div class="post-meta">
-                <h1 class="article-title">{{post.title}}</h1>
-                <ul>
-                  <li>
-                    <span class="bi bi-person"></span>
-                    {{post.author}}
-                  </li>
-                  <li>
-                    <span class="bi bi-tag"></span>
-                    {% for cat in post.category.all%}
-                    <a href="{% url 'website:index' %}?cat={{ cat.name }}#blog"><h7 class="category">{{cat.name|truncatechars:7}}</h7> </a>
-                    {% if not forloop.last %},
-                    {%endif%}
-                    {% endfor %}
-                       </li>
-                  <li>
-                    <span class="bi bi-chat-left-text"></span>
-                    <a href="#comments">{{comments|length}}</a>
-                  </li>
-                  <li>
-                    <span class="bi bi-eye"></span>
-                    {{post.counted_view}}
-                  </li>
-                </ul>
-              </div>
-              <div class="article-content">
-                {{post.content|safe}}
-              </div>
+  <!-- ======= Blog Single Section ======= -->
+  <section class="blog-wrapper sect-pt4" id="blog">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="post-box">
+            <div class="post-thumb">
+              <img src="{{post.image.url}}" class="img-fluid" alt="">
             </div>
-            <div class="box-comments" id="comments">
-              <div class="title-box-2">
-                <h4 class="title-comments title-left">Comments ({{comments|length}})</h4>
-              </div>
-              <ul class="list-comments">
-                {% for comment in comments %}
+            <div class="post-meta">
+              <h1 class="article-title">{{post.title}}</h1>
+              <ul>
                 <li>
-                  <div class="comment-avatar">
-                    <img src="{% static 'assets/img/testimonial-2.jpg' %}" alt="">
-                  </div>
-                  <div class="comment-details">
-                    <h4 class="comment-author">{{comment.name}}</h4>
-                    <span>{{comment.created_date|naturalday}}</span>
-                    <p>
-                      {{comment.message}}
-                    </p>
-                  </div>
+                  <span class="bi bi-person"></span>
+                  {{post.author}}
                 </li>
-                {% empty %}
-                <p> No comments here be the first one to tell your thoughts </p>
-                {% endfor %}
+                <li>
+                  <span class="bi bi-tag"></span>
+                  {% for cat in post.category.all%}
+                  <a href="{% url 'website:index' %}?cat={{ cat.name }}#blog">
+                    <h7 class="category">{{cat.name|truncatechars:7}}</h7>
+                  </a>
+                  {% if not forloop.last %},
+                  {%endif%}
+                  {% endfor %}
+                </li>
+                <li>
+                  <span class="bi bi-chat-left-text"></span>
+                  <a href="#comments">{{comments|length}}</a>
+                </li>
+                <li>
+                  <span class="bi bi-eye"></span>
+                  {{post.counted_view}}
+                </li>
               </ul>
             </div>
-            <div class="form-comments">
-              <div class="title-box-2">
-                <h3 class="title-left">
-                  Leave a Comment
-                </h3>
-              </div>
-              <form class="form-mf" method="post" action='{% url "blog:single" pid=post.id %}'>
-                {% csrf_token %}
-                <input type="hidden" name="post" value="{{post.id}}">
-                {% if request.user.is_authenticated %}
-                <input type="hidden" name="name" value="{{request.user}}">
-                <input type="hidden" name="email" value="{{request.user.email}}">
-                {% else %}
-                 <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <div class="form-group">
-                      <input type="text" class="form-control input-mf" name="name" placeholder="Name *" required>
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <div class="form-group">
-                      <input type="email" class="form-control input-mf" name="email" placeholder="Email *" required>
-                    </div>
-                  </div>
-                  {% endif %}
-                  <div class="col-md-6 mb-3">
-                    <div class="form-group">
-                      <input type="text" class="form-control input-mf" name="subject" placeholder="Subject *"  required>
-                    </div>
-                  </div>                  
-                  <div class="col-md-12 mb-3">
-                    <div class="form-group">
-                      <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <button type="submit" class="button button-a button-big button-rouded">Send Message</button>
-                  </div>
-                </div>
-              </form>
+            <div class="article-content">
+              {{post.content|safe}}
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="box-comments" id="comments">
+            <div class="title-box-2">
+              <h4 class="title-comments title-left">Comments ({{comments|length}})</h4>
+            </div>
+            <ul class="list-comments">
+              {% for comment in comments %}
+              <li>
+                <div class="comment-avatar">
+                  <img src="{% static 'assets/img/testimonial-2.jpg' %}" alt="">
+                </div>
+                <div class="comment-details">
+                  <h4 class="comment-author">{{comment.name}}</h4>
+                  <span>{{comment.created_date|naturalday}}</span>
+                  <p>
+                    {{comment.message}}
+                  </p>
+                </div>
+              </li>
+              {% empty %}
+              <p> No comments here be the first one to tell your thoughts </p>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="form-comments">
+            <div class="title-box-2">
+              <h3 class="title-left">
+                Leave a Comment
+              </h3>
+            </div>
+            <form class="form-mf" method="post" action='{% url "blog:single" pid=post.id %}'>
+              {% csrf_token %}
+              <input type="hidden" name="post" value="{{post.id}}">
+              <div class="row">
+              {% if request.user.is_authenticated %}
+              <input type="hidden" name="name" value="{{request.user}}">
+              <input type="hidden" name="email" value="{{request.user.email}}">
+              {% else %}
 
-            {% include 'blog/blog-search.html' %}
-
-            {% latest_posts 5 %}
-
+                <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                    <input type="text" class="form-control input-mf" name="name" placeholder="Name *" required>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                    <input type="email" class="form-control input-mf" name="email" placeholder="Email *" required>
+                  </div>
+                </div>
+                {% endif %}
+                <div class="col-md-12 mb-3">
+                  <div class="form-group">
+                    <input type="text" class="form-control input-mf" name="subject" placeholder="Subject *" required>
+                  </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                  <div class="form-group">
+                    <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="message"
+                      cols="45" rows="8" required></textarea>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <button type="submit" class="button button-a button-big button-rouded">Send Message</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
+        <div class="col-md-4">
+          {% include 'blog/blog-search.html' %}
+          {% latest_posts 4 %}
+        </div>
       </div>
-    </section><!-- End Blog Single Section -->
+    </div>
+  </section><!-- End Blog Single Section -->
 
-  </main><!-- End #main -->
+</main><!-- End #main -->
 
 {% endblock %}
