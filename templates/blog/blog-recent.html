@@ -1,0 +1,16 @@
+{% load static %}
+
+<div class="widget-sidebar">
+    <h5 class="sidebar-title">Recent Post</h5>
+    <div class="sidebar-content">
+      <ul class="list-sidebar">
+        {% for post in latest_posts %}
+        <li>
+          <a href="{% url 'blog:single' pid=post.id %}">
+            <h4 class="title">{{ post.title }}</h4>
+        </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>

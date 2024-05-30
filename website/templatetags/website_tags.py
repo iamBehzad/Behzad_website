@@ -1,23 +1,14 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django import template
-from blog.models import Post,Category
-from website.models import Type,Proj_Cert
+from blog.models import Post, Comments
+from website.models import Proj_Cert
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
+from website.forms import ContactForm
+from django.contrib import messages
 
 register = template.Library()
 
-'''
-@register.simple_tag
-def function(a):
-    posts = Post.objects.filter(statuse = 1)
-    return posts
-'''
-'''
-@register.filter
-def snippet(value):
-    return value[0:100]
-'''
 @register.inclusion_tag('website/projects.html', takes_context=True)
 def projects(context):
     request = context.get('request')
@@ -51,10 +42,16 @@ def certificates(context):
 
 @register.inclusion_tag('website/blog.html', takes_context=True)
 def blog(context):
+    s=None
+    cat=None
     current_time = timezone.now()
     request = context.get('request')
     if (cat:=request.GET.get('cat')):
         posts = Post.objects.filter(status =1 ,published_date__lte=current_time , category__name= cat)
+
+    elif (s:=request.GET.get('s')):
+        posts = Post.objects.filter(status =1 ,published_date__lte=current_time, content__contains=s)
+        
     else:
         posts = Post.objects.filter(status =1 ,published_date__lte=current_time)
 
@@ -67,4 +64,19 @@ def blog(context):
     except PageNotAnInteger:
         posts = posts.get_page(1)
 
-    return {'posts': posts, 'cat':cat}
+    return {'posts': posts, 'cat':cat, 's':s}
+
+
+@register.inclusion_tag('website/contact.html', takes_context=True)
+def contact(context):
+    request = context['request']
+    form=ContactForm()
+    
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'your ticket submitted successfully')
+        else:
+            messages.add_message(request, messages.ERROR, 'your ticket didnt submit')
+    return {'form': form}

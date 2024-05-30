@@ -39,11 +39,13 @@
             </p>
           </div>
           <div class="card-footer">
+
             <div class="post-author">
-                <span class="author">{{post.author}}</span>
-            </div>
+              <span class="bi bi-eye"></span> {{post.counted_view}} 
+            </div>  
+ 
             <div class="post-date">
-              <span class="bi bi-clock"></span> {{post.created_date|naturalday}}
+              <span class="bi bi-clock"></span> {{post.created_date|naturaltime}}
             </div>
 
           </div>
@@ -63,9 +65,9 @@
           {% endif %}
           {% for i in posts.paginator.page_range %}
           {% if posts.number == i %}
-          <li class="page-item active"><a href="?{% if cat %}cat={{ cat }}&{% endif %}blog_page={{i}}#blog" class="page-link">{{i}}</a></li>
+          <li class="page-item active"><a href="?{% if cat %}cat={{ cat }}&{% endif %}&{% if s %}s={{ s }}&{% endif %}&blog_page={{i}}#blog" class="page-link">{{i}}</a></li>
           {% else %}
-          <li class="page-item"><a href="?{% if cat %}cat={{ cat }}&{% endif %}blog_page={{i}}#blog" class="page-link">{{i}}</a></li>
+          <li class="page-item"><a href="?{% if cat %}cat={{ cat }}{% endif %}&{% if s %}s={{ s }}{% endif %}&blog_page={{i}}#blog" class="page-link">{{i}}</a></li>
           {% endif %}
           {% endfor %}
           {% if posts.has_next %}

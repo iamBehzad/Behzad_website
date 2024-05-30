@@ -14,6 +14,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
+
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -41,10 +44,12 @@ urlpatterns = [
 
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
-    #path('robots.txt', include('robots.urls')),    
+    path('robots.txt', include('robots.urls')),    
     path("__debug__/", include("debug_toolbar.urls")),
     path('summernote/', include('django_summernote.urls')),
-    #path('captcha/', include('captcha.urls')),
+    path('captcha/', include('captcha.urls')),
+
+    
  
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

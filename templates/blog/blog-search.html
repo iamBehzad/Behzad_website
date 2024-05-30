@@ -1,0 +1,18 @@
+{% load static %}
+
+<div class="widget-sidebar sidebar-search">
+  <h5 class="sidebar-title">Search</h5>
+  <div class="sidebar-content">
+    <form class="search-form" action="{% url 'website:index' %}?s=s#blog" method="get">
+      <div class="input-group">
+        <input type="text" name="s" class="form-control" placeholder="Search for..." aria-label="Search for...">
+        <span class="input-group-btn">
+          <button class="btn btn-secondary btn-search" type="submit" action="{% url 'website:index' %}?s=s#blog">
+            <span class="bi bi-search"></span>
+          </button>
+    </form>
+    </span>
+  </div>
+  </form>
+</div>
+</div>
