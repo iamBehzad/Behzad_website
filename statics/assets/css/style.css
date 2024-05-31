@@ -476,6 +476,36 @@ a:hover {
   padding: 12px 0;
 }
 
+.header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.login-logout-link {
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+
+.login-logout-link-item {
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a text shadow */
+}
+
+.login-logout-link-item:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Add a light background on hover */
+  color: #0062d3;
+}
+
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/

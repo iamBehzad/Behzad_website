@@ -40,7 +40,15 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <h1 class="logo"><a href="">Behzad Abbasi</a></h1>
+      <div class="login-logout-link-item" >
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'accounts:logout' %}" class="login-logout-link-item" style="color: #fff;">Logout</a>
+        {% else %}
+            <a href="{% url 'accounts:login' %}" class="login-logout-link-item" style="color: #fff;">Login | </a>
+            <a href="{% url 'accounts:signup' %}" class="login-logout-link-item" style="color: #fff;">Sign Up</a>
+        {% endif %}
+      </div>
+
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -53,7 +61,6 @@
           <li><a class="nav-link scrollto " href="{% url 'website:index' %}#blog">Blog</a></li>
           <li><a class="nav-link scrollto" href="{% url 'website:index' %}#contact">Contact</a></li>
         </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
     </div>

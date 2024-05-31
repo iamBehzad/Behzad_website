@@ -1,0 +1,66 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Login</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="{% static 'assets/css/signin.css' %}">
+</head>
+
+<body class="text-center">
+  <form class="form-signin" method="post" action="{% url 'accounts:login'%}">
+    {% csrf_token %}
+    <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72"
+      height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+    <label for="username" class="sr-only">Username or Email</label>
+    <input type="text" id="username" name="username" class="form-control" placeholder="Username or Email" required
+      autofocus>
+
+    <label for="password" class="sr-only">Password</label>
+    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" name="remember_me" value="1"> Remember me
+      </label>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <a href="{% url 'password_reset' %}">Forgot password?</a>
+
+    <p class="mt-5 mb-3 text-muted">&copy; 2024-2025</p>
+
+    <p style="color: red;">{{ error_message|default:'' }}</p>
+
+  </form>
+
+  {% if messages %}
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% for message in messages %}
+      <script>
+      Swal.fire({
+        title: '{{ message.tags|title }}',
+        text: '{{ message }}',
+        icon: '{{ message.tags }}',
+        confirmButtonText: 'OK'
+      });
+      </script>
+    {% endfor %}
+  {% endif %}
+  
+</body>
+
+</html>

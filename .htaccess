@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.domain\.ir$ [OR]
+RewriteCond %{HTTP_HOST} ^domain\.ir$
+RewriteRule ^(.*)$ https://domain.ir/$1 [L,R=301]
