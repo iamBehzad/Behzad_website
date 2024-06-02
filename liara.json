@@ -1,0 +1,22 @@
+{
+  "platform": "django",
+  "django": {
+    "pythonVersion": "3.9",
+    "collectStatic": true,
+    "compileMessages": false,
+    "modifySettings": true,
+    "timezone": "Asia/Tehran"
+    
+  },
+  "app": "behzad-abbasi",
+  "disks": [
+    {
+      "name": "db",
+      "mountTo": "db"
+    },
+    {
+      "name": "media",
+      "mountTo": "media"
+    }
+  ]
+}

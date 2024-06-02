@@ -15,6 +15,8 @@ django_sitemaps==2.0.1
 humanize==4.9.0
 lxml==5.2.2
 pillow==10.3.0
+psycopg2==2.9.9
+python-decouple==3.8
 rcssmin==1.1.1
 rjsmin==1.2.1
 robots==0.1.5
