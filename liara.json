@@ -11,8 +11,8 @@
   "app": "behzad-abbasi",
   "disks": [
     {
-      "name": "db",
-      "mountTo": "db"
+      "name": "mydb",
+      "mountTo": "mydb"
     },
     {
       "name": "media",
